@@ -5,6 +5,7 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  ToastController,
 } from '@ionic/angular';
 import { CounterComponent } from '../components/counter/counter.component';
 import { SavedCounter } from '../models/saved-counter';
@@ -24,8 +25,29 @@ import { CounterService } from '../services/counter.service';
 })
 export class Tab1Page {
   private readonly counterService = inject(CounterService);
+  private readonly toastController = inject(ToastController);
 
   async onSaved(counter: SavedCounter): Promise<void> {
-    await this.counterService.add(counter);
+    try {
+      await this.counterService.add(counter);
+
+      const toast = await this.toastController.create({
+        message: 'Počítadlo bylo uloženo.',
+        duration: 2000,
+        position: 'top',
+      });
+
+      await toast.present();
+    } catch (error) {
+      console.error('Počítadlo se nepodařilo uložit.', error);
+
+      const toast = await this.toastController.create({
+        message: 'Počítadlo se nepodařilo uložit.',
+        duration: 2000,
+        position: 'top',
+      });
+
+      await toast.present();
+    }
   }
 }
