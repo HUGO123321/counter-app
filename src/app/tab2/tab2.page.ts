@@ -79,6 +79,21 @@ export class Tab2Page implements OnInit {
     return this.counterService.counters()
       .reduce((sum, counter) => sum + counter.value, 0);
   }
+  
+  get positiveCount(): number {
+    return this.counterService.counters()
+      .filter(counter => counter.value > 0).length;
+  }
+
+  get negativeCount(): number {
+    return this.counterService.counters()
+      .filter(counter => counter.value < 0).length;
+  }
+
+  get zeroCount(): number {
+    return this.counterService.counters()
+      .filter(counter => counter.value === 0).length;
+  }
 
   async ngOnInit(): Promise<void> {
     await this.counterService.initialize();
@@ -131,5 +146,16 @@ export class Tab2Page implements OnInit {
     });
 
     await toast.present();
+  }
+
+  onSortChange(value: unknown): void {
+    if (
+      value === 'newest' ||
+      value === 'oldest' ||
+      value === 'name' ||
+      value === 'value'
+    ) {
+      this.sortOrder = value;
+    }
   }
 }

@@ -72,4 +72,17 @@ describe('Tab2Page', () => {
 
     expect(counterService.remove).toHaveBeenCalledWith('1');
   });
+  
+  it('should count positive, negative and zero values', () => {
+    counterService.counters.mockReturnValue([
+      { id: '1', name: 'Kladné', value: 5, createdAt: '2026-10-11T10:00:00.000Z' },
+      { id: '2', name: 'Záporné', value: -3, createdAt: '2026-10-11T11:00:00.000Z' },
+      { id: '3', name: 'Nulové', value: 0, createdAt: '2026-10-11T12:00:00.000Z' },
+      { id: '4', name: 'Další kladné', value: 2, createdAt: '2026-10-11T13:00:00.000Z' },
+    ]);
+
+    expect(component.positiveCount).toBe(2);
+    expect(component.negativeCount).toBe(1);
+    expect(component.zeroCount).toBe(1);
+  });
 });

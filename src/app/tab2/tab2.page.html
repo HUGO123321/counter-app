@@ -16,6 +16,9 @@
       <div>
         <p>Počet záznamů: {{ counterService.counters().length }}</p>
         <p>Součet hodnot: {{ totalValue }}</p>
+        <p>Kladné hodnoty: {{ positiveCount }}</p>
+        <p>Záporné hodnoty: {{ negativeCount }}</p>
+        <p>Nulové hodnoty: {{ zeroCount }}</p>
       </div>
 
       @if (counterService.counters().length > 0) {
@@ -43,7 +46,7 @@
           aria-label="Řazení historie"
           interface="popover"
           [value]="sortOrder"
-          (ionChange)="sortOrder = $event.detail.value"
+          (ionChange)="onSortChange($event.detail.value)"
         >
           <ion-select-option value="newest">Nejnovější</ion-select-option>
           <ion-select-option value="oldest">Nejstarší</ion-select-option>

@@ -33,14 +33,11 @@ export class CounterComponent {
     this.count++;
   }
   decrement(): void {
-    if (this.count > 0) {
       this.count--;
-    }
   }
   reset(): void {
     this.count = 0;
   }
-
   save(): void {
     const name = this.counterName.trim();
 
